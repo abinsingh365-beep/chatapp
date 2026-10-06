@@ -13,6 +13,19 @@ npm run build
 npm run preview
 ```
 
+## Client API configuration
+
+Copy `.env.example` to `.env` and set the backend URLs:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+- `VITE_API_URL` is the backend API base URL, including `/api` (for example, `http://localhost:5000/api`).
+- `VITE_SOCKET_URL` is the backend origin used for Socket.IO (for example, `http://localhost:5000`).
+
+Start the backend server before using the client. Restart Vite after changing `.env` values.
+
 ## API usage
 
 See [`@vitejs/plugin-rsc`](https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-rsc) for the documentation.
