@@ -6,6 +6,7 @@ export const USER_KEY = 'common-room-user'
 export async function request(path, options = {}, token) {
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
+    credentials: 'include', 
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
@@ -22,6 +23,7 @@ export async function request(path, options = {}, token) {
 export async function uploadImage(path, formData, token, method = 'POST') {
   const response = await fetch(`${API_URL}${path}`, {
     method,
+    credentials: 'include', 
     headers: { Authorization: `Bearer ${token}` },
     body: formData,
   })

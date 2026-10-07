@@ -11,6 +11,7 @@ import userRoutes from "./routes/userRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import mediaRoutes from "./routes/mediaRoutes.js";
 
 import initializeSocket from "./socket/socket.js";
 
@@ -24,7 +25,7 @@ const server = http.createServer(app);
 // Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://sonuchatapp.netlify.app",
+  "https://sonuchat.netlify.app",
 ];
 
 // Socket.IO
@@ -58,6 +59,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/media", mediaRoutes);
 
 // Test route
 app.get("/", (req, res) => {

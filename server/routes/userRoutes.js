@@ -9,7 +9,7 @@ import {
 } from "../controllers/userController.js";
 
 import protect from "../middleware/authMiddleware.js";
-import attachmentUpload from "../middleware/uploadMiddleware.js";
+import profileImageUpload from "../middleware/profileImageUpload.js";
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get("/profile", protect, getProfile);
 router.put(
   "/profile",
   protect,
-  attachmentUpload.single("profileImage"),
+  profileImageUpload.single("profileImage"),
   updateProfile
 );
 

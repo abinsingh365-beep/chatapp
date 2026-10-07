@@ -26,6 +26,10 @@ Copy-Item .env.example .env
 
 Start the backend server before using the client. Restart Vite after changing `.env` values.
 
+## Profile image storage
+
+Profile images are stored in MongoDB GridFS so they survive backend restarts and deployments that use temporary local filesystems. The MongoDB database configured by the server's `MONGO_URI` must have enough storage for uploaded images.
+
 ## API usage
 
 See [`@vitejs/plugin-rsc`](https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-rsc) for the documentation.
