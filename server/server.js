@@ -21,17 +21,29 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+app.set("trust proxy", 1);
 
 // Allowed frontend URLs
 const allowedOrigins = [
   "http://localhost:5173",
   "https://sonuchat.netlify.app",
-];
+  process.env.CLIENT_URL,
+  process.env.DEPLOY_PRIME_URL,
+].filter(Boolean);
+
+const allowFrontendOrigin = (origin, callback) => {
+  const isNetlifyOrigin = /^https:\/\/[a-z0-9-]+\.netlify\.app$/i.test(origin || "");
+  if (!origin || allowedOrigins.includes(origin) || isNetlifyOrigin) {
+    callback(null, true);
+    return;
+  }
+  callback(new Error("Origin is not allowed by CORS"));
+};
 
 // Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: allowFrontendOrigin,
     credentials: true,
   },
 });
@@ -42,7 +54,7 @@ connectDB();
 // Middleware
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: allowFrontendOrigin,
     credentials: true,
   })
 );

@@ -128,6 +128,9 @@ export const sendAttachmentMessage = async (req, res) => {
 
     const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
     const isImage = req.file.mimetype.startsWith("image/");
+    const isAudio =
+      req.file.mimetype.startsWith("audio/") ||
+      /\.(m4a|mp3|ogg|wav|webm)$/i.test(req.file.originalname);
     const message = await Message.create({
       conversation: conversationId,
       sender: req.user._id,
@@ -136,7 +139,7 @@ export const sendAttachmentMessage = async (req, res) => {
       file_url: fileUrl,
       file_name: req.file.originalname,
       file_type: req.file.mimetype,
-      message_type: isImage ? "image" : "file",
+      message_type: isImage ? "image" : isAudio ? "audio" : "file",
     });
 
     conversation.last_message = message._id;
@@ -148,7 +151,7 @@ export const sendAttachmentMessage = async (req, res) => {
 
     return successResponse(
       res,
-      "Image sent successfully",
+      "Attachment sent successfully",
       populatedMessage,
       201
     );

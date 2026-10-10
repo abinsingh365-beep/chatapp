@@ -48,8 +48,23 @@ const messageSchema = new mongoose.Schema(
 
     message_type: {
       type: String,
-      enum: ["text", "image", "file"],
+      enum: ["text", "image", "file", "audio", "call"],
       default: "text",
+    },
+
+    call_type: {
+      type: String,
+      enum: ["audio", "video"],
+    },
+
+    call_status: {
+      type: String,
+      enum: ["completed", "missed", "declined"],
+    },
+
+    call_duration: {
+      type: Number,
+      default: 0,
     },
 
     is_seen: {
